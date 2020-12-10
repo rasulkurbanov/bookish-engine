@@ -1,0 +1,11 @@
+{
+  "name": "bookish-engine",
+  "version": "1.0.0",
+  "description": "API of worldwide programming books",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rasuljon Kurbanov",
+  "license": "MIT"
+}
