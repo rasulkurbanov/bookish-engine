@@ -8,14 +8,23 @@ exports.getBooks = (req, res, next) => {
 //@desc GET a single book with an id
 //@route GET api/books/:id
 //access PUBLIC
-exports.getBook = (req, res, next) => {
+exports.getBook = async (req, res, next) => {
   res.json({success: true, msg: `showing a book with an ${req.params.id}`})
+  try { 
+    const book = await
+  }
+
+
 }
 
 //@desc POST a book
 //@route POST api/books
 //access PUBLIC
 exports.createBook = (req, res, next) => {
+
+
+
+
   res.json({success: true, msg: "created a book"})
 }
 
