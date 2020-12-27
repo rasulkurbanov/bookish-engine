@@ -1,3 +1,6 @@
+const Books = require('../models/Books')
+
+
 //@desc GET all books
 //@route GET api/books
 //access PUBLIC
@@ -9,9 +12,13 @@ exports.getBooks = (req, res, next) => {
 //@route GET api/books/:id
 //access PUBLIC
 exports.getBook = async (req, res, next) => {
-  res.json({success: true, msg: `showing a book with an ${req.params.id}`})
   try { 
-    const book = await
+    const book = await Books.findById(req.params.id)
+
+    res.json({success: true, msg: `showing a book with an ${req.params.id}`})
+  }
+  catch(err) {
+    console.log(err)
   }
 
 
@@ -20,12 +27,16 @@ exports.getBook = async (req, res, next) => {
 //@desc POST a book
 //@route POST api/books
 //access PUBLIC
-exports.createBook = (req, res, next) => {
+exports.createBook = async (req, res, next) => {
+  try {
+    const book = await Books.create(req.body)
 
+    res.json({success: true, msg: `Book has been added to database`})
 
-
-
-  res.json({success: true, msg: "created a book"})
+  }
+  catch(err) {
+    console.log(err)
+  }
 }
 
 //@desc Update a single book with an id given in params
