@@ -15,7 +15,7 @@ exports.getBook = async (req, res, next) => {
   try { 
     const book = await Books.findById(req.params.id)
 
-    res.json({success: true, msg: `showing a book with an ${req.params.id}`})
+    res.json({success: true, msg: `showing a book with an ${req.params.id}`, data: book})
   }
   catch(err) {
     console.log(err)
@@ -28,6 +28,7 @@ exports.getBook = async (req, res, next) => {
 //@route POST api/books
 //access PUBLIC
 exports.createBook = async (req, res, next) => {
+  console.log(req.body)
   try {
     const book = await Books.create(req.body)
 

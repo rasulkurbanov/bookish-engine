@@ -25,12 +25,12 @@ const BookSchema = new mongoose.Schema({
   shortDescription: {
     type: String,
     required: [true, 'Please add the short description'],
-    maxlength: [255, 'Short description can not be more than 500 letters']
+    maxlength: [1000, 'Short description can not be more than 1000 letters']
   },
   longDescription: {
     type: String,
     required: [true, 'Please add the long description'],
-    maxlength: [1000, 'Short description can not be more than 500 letters']
+    maxlength: [10000, 'Long description can not be more than 10000 letters']
   },
   status: {
     type: String,
