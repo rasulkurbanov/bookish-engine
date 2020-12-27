@@ -5,6 +5,18 @@ const Books = require('../models/Books')
 //@route GET api/books
 //access PUBLIC
 exports.getBooks = (req, res, next) => {
+  try {
+    const books = await Books.find()
+
+    res
+      .status(200)
+      .json({success: true, msg: `showing all books`, data: books})
+
+  }
+  catch(err) {
+    console.log(err)
+  }
+
   res.json({success: true, msg: "showing all books"})
 }
 
@@ -15,7 +27,9 @@ exports.getBook = async (req, res, next) => {
   try { 
     const book = await Books.findById(req.params.id)
 
-    res.json({success: true, msg: `showing a book with an ${req.params.id}`, data: book})
+    res
+      .status(200)
+      .json({success: true, msg: `showing a book with an ${req.params.id}`, data: book})
   }
   catch(err) {
     console.log(err)
@@ -32,7 +46,9 @@ exports.createBook = async (req, res, next) => {
   try {
     const book = await Books.create(req.body)
 
-    res.json({success: true, msg: `Book has been added to database`})
+    res
+      .status(201)
+      .json({success: true, msg: `Book has been added to database`})
 
   }
   catch(err) {
