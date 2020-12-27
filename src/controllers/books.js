@@ -10,28 +10,28 @@ exports.getBooks = (req, res, next) => {
 
     res
       .status(200)
-      .json({success: true, msg: `showing all books`, data: books})
+      .json({ success: true, msg: `showing all books`, data: books })
 
   }
-  catch(err) {
+  catch (err) {
     console.log(err)
   }
 
-  res.json({success: true, msg: "showing all books"})
+  res.json({ success: true, msg: "showing all books" })
 }
 
 //@desc GET a single book with an id
 //@route GET api/books/:id
 //access PUBLIC
 exports.getBook = async (req, res, next) => {
-  try { 
+  try {
     const book = await Books.findById(req.params.id)
 
     res
       .status(200)
-      .json({success: true, msg: `showing a book with an ${req.params.id}`, data: book})
+      .json({ success: true, msg: `showing a book with an ${req.params.id}`, data: book })
   }
-  catch(err) {
+  catch (err) {
     console.log(err)
   }
 
@@ -42,16 +42,15 @@ exports.getBook = async (req, res, next) => {
 //@route POST api/books
 //access PUBLIC
 exports.createBook = async (req, res, next) => {
-  console.log(req.body)
   try {
     const book = await Books.create(req.body)
 
     res
       .status(201)
-      .json({success: true, msg: `Book has been added to database`})
+      .json({ success: true, msg: `Book has been added to database` })
 
   }
-  catch(err) {
+  catch (err) {
     console.log(err)
   }
 }
@@ -60,12 +59,29 @@ exports.createBook = async (req, res, next) => {
 //@route PUT api/books/:id
 //access PUBLIC
 exports.updateBook = (req, res, next) => {
-  res.json({success: true, msg: `Updated a book with an id ${req.params.id}`})
+
+  try {
+    const book = await Books.findByIdAndUpdate(req.params.id)
+
+    res
+      .status(200)
+      .json({ success: true, msg: `Updated a book with an id ${req.params.id}` })
+
+  }
+  catch (err) {
+    console.log(err)
+
+    res
+      .status(400)
+      .json({ success: false, msg: `Something went wrong, or ${err.message}` })
+  }
+
 }
 
 //@desc DELETE a single book 
 //@route DELETE api/books/:id
 //access PUBLIC
 exports.deleteBook = (req, res, next) => {
-  res.json({success: true, msg: `Deleted book with an id ${req.params.id}`})
+  res.json({ success: true, msg: `Deleted book with an id ${req.params.id}` })
+
 }
