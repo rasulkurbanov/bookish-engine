@@ -3,8 +3,7 @@ const ErrorResponse = require('../utils/errorResponse')
 const errorHandler = (err, req, res, next) => {
   let error = {...err}
 
-  console.log(err.message)
-  console.log(err.code)
+  // console.log(err.message)
   //Log to console for developer
 
   //Mongoose errors type
