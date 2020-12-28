@@ -20,6 +20,7 @@ exports.getBooks = async (req, res, next) => {
   res.json({ success: true, msg: "showing all books" })
 }
 
+
 //@desc GET a single book with an id
 //@route GET api/books/:id
 //access PUBLIC
@@ -32,11 +33,13 @@ exports.getBook = async (req, res, next) => {
       .json({ success: true, msg: `showing a book with an ${req.params.id}`, data: book })
   }
   catch (err) {
-    console.log(err)
+    // console.log(err)
+    next(err)
   }
 
 
 }
+
 
 //@desc POST a book
 //@route POST api/books
@@ -54,6 +57,7 @@ exports.createBook = async (req, res, next) => {
     console.log(err)
   }
 }
+
 
 //@desc Update a single book with an id given in params
 //@route PUT api/books/:id
