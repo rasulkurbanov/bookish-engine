@@ -9,6 +9,10 @@ exports.getBooks = async (req, res, next) => {
   try {
     const books = await Books.find()
 
+    if (!books) {
+      return next(new ErrorResponse(`Books not found`, 404))
+    }
+
     res
       .status(200)
       .json({ success: true, msg: `showing all books`, data: books })
@@ -51,6 +55,7 @@ exports.getBook = async (req, res, next) => {
 exports.createBook = async (req, res, next) => {
   try {
     const book = await Books.create(req.body)
+    
 
     res
       .status(201)
@@ -75,6 +80,10 @@ exports.updateBook = async (req, res, next) => {
     const book = await Books.findByIdAndUpdate(id, req.body, {
       new: true,
     })
+
+    if (!book) {
+      return next(new ErrorResponse(`Book not found`, 404))
+    }
 
     res
       .status(200)
