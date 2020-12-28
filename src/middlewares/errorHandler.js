@@ -1,11 +1,11 @@
 const errorHandler = (err, req, res, next) => {
 
   //Log to console for developer
-  console.log(err.stack.red)
+  console.log(err.stack)
 
   res
-    .status(400)
-    .json({success: false, msg: err.message})
+    .status(err.statusCode || 500)
+    .json({success: false, msg: err.message || `Something went wrong`})
 }
 
 

@@ -1,4 +1,5 @@
 const Books = require('../models/Books')
+const ErrorResponse = require('../utils/errorResponse')
 
 
 //@desc GET all books
@@ -28,13 +29,17 @@ exports.getBook = async (req, res, next) => {
   try {
     const book = await Books.findById(req.params.id)
 
+    if(!book) {
+      return next(new ErrorResponse(`Book not found`, 404))
+    }
+
     res
       .status(200)
       .json({ success: true, msg: `showing a book with an ${req.params.id}`, data: book })
   }
   catch (err) {
     // console.log(err)
-    next(err)
+    next(new ErrorResponse(`Book not found with an ID of ${req.params.id} or maybe ID is not valid`, 400))
   }
 
 
