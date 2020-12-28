@@ -29,19 +29,18 @@ exports.getBook = async (req, res, next) => {
   try {
     const book = await Books.findById(req.params.id)
 
-    if(!book) {
+    if (!book) {
       return next(new ErrorResponse(`Book not found`, 404))
     }
 
     res
       .status(200)
-      .json({ success: true, msg: `showing a book with an ${req.params.id}`, data: book })
+      .json({ success: true, msg: `Showing a book with an ${req.params.id}`, data: book })
   }
   catch (err) {
-    // console.log(err)
-    next(new ErrorResponse(`Book not found with an ID of ${req.params.id} or maybe ID is not valid`, 400))
+    // next(new ErrorResponse(`Book not found with an ID of ${req.params.id} or ID is not valid`, 400))
+    next(err)
   }
-
 
 }
 
@@ -103,16 +102,16 @@ exports.deleteBook = async (req, res, next) => {
   try {
     await Books.findByIdAndDelete(id)
 
-    res 
+    res
       .status(200)
-      .json({success: true, msg: `Book has been deleted with an id of ${id}`})
+      .json({ success: true, msg: `Book has been deleted with an id of ${id}` })
   }
-  catch(err) {
+  catch (err) {
     res
       .status(400)
-      .json({ success: false, msg: `Something went wrong with deleting or ${err.message}` }) 
+      .json({ success: false, msg: `Something went wrong with deleting or ${err.message}` })
 
-    console.log(err)   
+    console.log(err)
   }
 
 }
