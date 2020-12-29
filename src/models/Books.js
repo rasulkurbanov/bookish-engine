@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-
+const slugify = require('slugify')
 
 const BookSchema = new mongoose.Schema({
   title: {
@@ -47,21 +47,22 @@ const BookSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now()
+  },
+  slug: {
+    type: String
   }
 })
 
 
 
-
-
-
-
-
-
-
-
-
-
+BookSchema.pre('save', function(next) {
+  this.slug = slugify(this.title, {
+    replacement: '-',
+    lower: true,
+    remove: /[#*+~.()'"!:@]/g
+  })
+  next()
+})
 
 
 
