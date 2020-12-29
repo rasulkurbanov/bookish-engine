@@ -59,7 +59,7 @@ BookSchema.pre('save', function(next) {
   this.slug = slugify(this.title, {
     replacement: '-',
     lower: true,
-    remove: /[#*+~.()'"!:@]/g
+    remove: /[#w*+~.()'"!:@]/g
   })
   next()
 })
