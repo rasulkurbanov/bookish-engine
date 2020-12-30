@@ -31,7 +31,7 @@ const connectDB = async () => {
 
 //Read JSON file
 const books = fs.readFileSync(`${__dirname}/data/books.json`, 'utf-8')
-const users = fs.readFileSync(`${__dirname}/data/people.json`, 'utf-8')
+const users = fs.readFileSync(`${__dirname}/data/users.json`, 'utf-8')
 
 //Import into DB
 const importData = async () => {
