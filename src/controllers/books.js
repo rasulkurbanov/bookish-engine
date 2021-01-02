@@ -7,8 +7,12 @@ const asyncHandler = require('../middlewares/asyncHandler')
 //@route GET api/books
 //access PUBLIC
 exports.getBooks = asyncHandler( async (req, res, next) => {
-    const books = await Books.find()
 
+  let query = req.query
+
+  queryStr = JSON.stringify(query)
+
+    const books = await Books.find(JSON.parse(queryStr))
 
     if (!books) {
       return next(new ErrorResponse(`Books not found`, 404))
