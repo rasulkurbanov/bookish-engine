@@ -42,7 +42,7 @@ exports.getBooks = asyncHandler( async (req, res, next) => {
     else if(key === 'page') {
       let values = Object.values(query)
 
-      const books = await Books.find().skip(page - 1)
+      const books = await Books.find().skip(page - 1).exec()
 
       if (!books) {
         return next(new ErrorResponse(`Books not found`, 404))
@@ -56,7 +56,21 @@ exports.getBooks = asyncHandler( async (req, res, next) => {
     else if(key === 'limit') {
       let values = Object.values(query)
 
-      const books = await Books.find().skip(page - 1)
+      const books = await Books.find().limit(limit * 1).exec()
+
+      if (!books) {
+        return next(new ErrorResponse(`Books not found`, 404))
+      }
+  
+      res
+        .status(200)
+        .json({ success: true, msg: `showing all books`, data: books }) 
+    }
+
+    else if(key === 'limit' && key === 'page') {
+      let values = Object.values(query)
+
+      const books = await Books.find().limit(limit * 1).skip((page - 1) * limit).exec()
 
       if (!books) {
         return next(new ErrorResponse(`Books not found`, 404))
@@ -68,6 +82,7 @@ exports.getBooks = asyncHandler( async (req, res, next) => {
     }
 
   }
+
 
 
 })
