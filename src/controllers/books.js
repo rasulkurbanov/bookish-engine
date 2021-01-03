@@ -29,10 +29,22 @@ exports.getBooks = asyncHandler( async (req, res, next) => {
         .json({ success: true, msg: `showing all books`, data: books })
     }
     else if(key === 'title') {
+      let values = Object.values(query)
 
+      const books = await Books.find({authors: {"$in": values}})
+
+      if (!books) {
+        return next(new ErrorResponse(`Books not found`, 404))
+      }
+  
+      res
+        .status(200)
+        .json({ success: true, msg: `showing all books`, data: books }) 
     }
 
   }
+
+
 
 
 
