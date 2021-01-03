@@ -8,10 +8,7 @@ const asyncHandler = require('../middlewares/asyncHandler')
 //access PUBLIC
 exports.getBooks = asyncHandler( async (req, res, next) => {
 
-  //Turn req.query into JSON
-  // let queryStr = JSON.stringify(req.query)
-
-  query = req.query
+  let query = req.query
 
   // console.log(Object.keys(req.query))
   for(let key in query) {
@@ -42,13 +39,36 @@ exports.getBooks = asyncHandler( async (req, res, next) => {
         .json({ success: true, msg: `showing all books`, data: books }) 
     }
 
+    else if(key === 'page') {
+      let values = Object.values(query)
+
+      const books = await Books.find().skip(page - 1)
+
+      if (!books) {
+        return next(new ErrorResponse(`Books not found`, 404))
+      }
+  
+      res
+        .status(200)
+        .json({ success: true, msg: `showing all books`, data: books }) 
+    }
+    //Limit  
+    else if(key === 'limit') {
+      let values = Object.values(query)
+
+      const books = await Books.find().skip(page - 1)
+
+      if (!books) {
+        return next(new ErrorResponse(`Books not found`, 404))
+      }
+  
+      res
+        .status(200)
+        .json({ success: true, msg: `showing all books`, data: books }) 
+    }
+
   }
 
-
-
-
-
-    
 
 })
 
